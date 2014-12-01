@@ -1,0 +1,8 @@
+[actions]
+action.success = traverse_to:string:removeGroupMembersDoer
+
+[validators]
+validators = removeGroupMembersValidator
+
+[default]
+title = Remove Group Members

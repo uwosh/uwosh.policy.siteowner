@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+<head>
+
+    <metal:block fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1)" />
+    <metal:block fill-slot="column_one_slot" />
+    <metal:block fill-slot="column_two_slot" />
+    <title tal:content="template/title">The title</title>
+  </head>
+  <body>
+
+<div metal:fill-slot="main">
+  
+    <span tal:replace="nothing">
+        The tal:define in the <fieldset/> tag below forces the user to
+        log in and ensures the user has at least View Groups
+        permission.
+    </span>
+
+    <fieldset tal:define="groupIds here/portal_groups/listGroupIds">
+	<a href="addGroup">Add a Group</a>  &nbsp;
+	<a href="addGroupMembers">Add Group Members</a> &nbsp;
+	<a href="removeGroup">Remove a Group</a> &nbsp;
+	<a href="removeGroupMembers">Remove Group Members</a>
+    </fieldset>
+
+
+</div>
+  </body>
+</html>

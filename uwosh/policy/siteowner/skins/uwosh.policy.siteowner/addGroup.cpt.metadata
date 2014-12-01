@@ -1,0 +1,8 @@
+[actions]
+action.success = traverse_to:string:addGroupDoer
+
+[validators]
+validators = addGroupValidator
+
+[default]
+title = Add a Group

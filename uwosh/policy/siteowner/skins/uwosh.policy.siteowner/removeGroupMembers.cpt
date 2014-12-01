@@ -1,0 +1,78 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+<head>
+
+    <metal:block fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1)" />
+    <metal:block fill-slot="column_one_slot" />
+    <metal:block fill-slot="column_two_slot" />
+    <title tal:content="template/title">The title</title>
+  </head>
+  <body>
+
+<div metal:fill-slot="main">
+  
+    <fieldset>
+	<a href="addGroup">Add a Group</a>  &nbsp;
+	<a href="addGroupMembers">Add Group Members</a> &nbsp;
+	<a href="removeGroup">Remove a Group</a> &nbsp;
+	<a href="removeGroupMembers">Remove Group Members</a>
+    </fieldset>
+
+    <h2>
+        <span tal:condition="template/title"
+              tal:replace="template/title">optional template id</span></h2>
+
+    <form method="POST" tal:attributes="action string:${here/absolute_url}/${template/id};"
+          tal:define="errors options/state/getErrors">
+
+      <p class="error_message" tal:define="err errors/groupId|nothing" tal:condition="err"><b tal:content="err" /></p>
+      <p class="error_message" tal:define="err errors/userIds|nothing" tal:condition="err"><b tal:content="err" /></p>
+
+<div tal:define="pg here/portal_groups">
+
+      <p>Here are the groups you can modify:</p>
+
+       <ul>
+	<div tal:repeat="g pg/getGroupIds">
+	 <li tal:condition="python: g not in ('Administrators','Site Owners','AuthenticatedUsers')"
+	     tal:define="who python:pg.getGroupMembers(g)">
+	   <span tal:content="g">[groupId]</span> 
+	   <ul tal:repeat="u who">
+	     <li tal:content="u">[userId]</li>
+	   </ul>
+	</li>
+	</div>
+      </ul>
+
+
+
+        Choose a group:
+        <div tal:repeat="g pg/getGroupIds">
+	  <span tal:condition="python: g not in ('Administrators','Site Owners','AuthenticatedUsers')">
+	    <input name="groupId" type="radio"
+	     tal:attributes="value g">
+	    <span tal:content="g"/>
+	  </span>
+	</div>
+
+
+      <p>Enter one userId per line (ie., what comes before "@uwosh.edu" in someone's email address):</p>
+	<textarea rows="20" name="userIds"></textarea>
+
+
+</div>
+
+      <p><input type="submit" name="form.button.submit" value="Submit" /></p>
+
+      <input type="hidden" name="form.submitted" value="1" />
+    </form>
+
+  </div>
+  </body>
+</html>

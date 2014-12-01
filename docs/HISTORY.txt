@@ -1,0 +1,31 @@
+Changelog
+=========
+
+0.2.1 (2011-05-05)
+------------------
+
+* Adds a portal_action "Manage groups" which takes the user to a
+  landing page with links to the four forms.
+
+
+0.2 (2011-05-05)
+----------------
+
+* Includes new forms addGroup, removeGroup, addGroupMembers,
+  removeGroupMembers. 
+
+* Assigned permissions View Groups, Create Groups, Delete Groups,
+  Manage Groups to the SiteOwner role.
+
+
+0.1.1 (2011-01-28)
+------------------
+
+* Removed permission in rolemap that no longer exists in Plone 4
+
+
+0.1 (2010-12-10)
+----------------
+
+* Initial release
+
